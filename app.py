@@ -6,9 +6,6 @@ import base64 as _base64
 import functools as _functools
 import io as _io
 import os as _os
-import webbrowser as _webbrowser
-
-import waitress as _waitress
 
 import numpy as _np
 import pandas as _pd
@@ -245,16 +242,4 @@ def _upload_data_frame (contents, df):
     return (df.to_dict(), table, figure)
 
 if __name__ == '__main__':
-    port = 44100
-
-    url = rf"http://localhost:{port:d}/"
-
-    print(f"Now listening on: {url}")
-    print('')
-    print('To access the app, open the URL above in your Internet browser.')
-    print('Close this window when you are finished with using the app.')
-
-    _webbrowser.open(url, new = 2)
-    _waitress.serve(_app.server, port = port, url_scheme = 'https')
-
-    exit(0)
+    _app.run_server()
