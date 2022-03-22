@@ -19,7 +19,7 @@ import dash.exceptions as _exc
 import dash.html as _html
 import dash_bootstrap_components as _dbc
 
-_app = _dash.Dash(
+app = _dash.Dash(
     __name__,
     title = 'New Testing App',
     external_stylesheets = [
@@ -33,7 +33,7 @@ _app = _dash.Dash(
     ]
 )
 
-_app.layout = _dbc.Container(
+app.layout = _dbc.Container(
     children = [
         _html.Header(
             children = [
@@ -137,7 +137,7 @@ _app.layout = _dbc.Container(
     ]
 )
 
-@_app.callback(
+@app.callback(
     _dep.Output('data-frame-store', 'data'),
     _dep.Output('data-frame-table', 'children'),
     _dep.Output('data-figure', 'children'),
@@ -238,4 +238,4 @@ def _upload_data_frame (contents, df):
     return (df.to_dict(), table, figure)
 
 if __name__ == '__main__':
-    _app.run_server(debug = True)
+    app.run_server(debug = True)
