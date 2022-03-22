@@ -5,7 +5,6 @@
 import base64 as _base64
 import functools as _functools
 import io as _io
-import os as _os
 
 import numpy as _np
 import pandas as _pd
@@ -19,9 +18,6 @@ import dash.dependencies as _dep
 import dash.exceptions as _exc
 import dash.html as _html
 import dash_bootstrap_components as _dbc
-
-_dir = _os.path.dirname(_os.path.abspath(__file__))
-_os.chdir(_dir)
 
 _app = _dash.Dash(
     __name__,
@@ -242,4 +238,4 @@ def _upload_data_frame (contents, df):
     return (df.to_dict(), table, figure)
 
 if __name__ == '__main__':
-    _app.run_server()
+    _app.run_server(debug = True)
