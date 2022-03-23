@@ -33,6 +33,7 @@ _dash_app = _dash.Dash(
         r"https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.js"
     ]
 )
+
 app = _dash_app.server
 
 _dash_app.layout = _dbc.Container(
@@ -151,7 +152,7 @@ def _print_value (x):
 
     _dep.State('data-frame-store', 'data')
 )
-def _upload_data_frame (contents, df):
+def _upload_df (contents, df):
     if df is None:
         if not _dash.callback_context.triggered or contents is None:
             raise _exc.PreventUpdate()
