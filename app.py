@@ -27,6 +27,7 @@ _dash_app = _dash.Dash(
     ],
     external_scripts = [
         r"https://polyfill.io/v3/polyfill.js?features=default%2Ces5%2Ces6%2Ces2015%2Ces7%2Ces2016%2Ces2017%2Ces2018%2Ces2019%2CIntl%2Cblissfuljs%2CNumber.MIN_SAFE_INTEGER%2CNumber.MAX_SAFE_INTEGER%2CNumber.EPSILON%2CNumber.Epsilon%2CNumber.isNaN%2CNumber.isFinite%2CNumber.isInteger%2CNumber.isSafeInteger%2CNumber.parseInt%2CNumber.parseFloat",
+        r"https://cdn.jsdelivr.net/npm/jquery@3.6.0/dist/jquery.js",
         r"https://cdn.jsdelivr.net/npm/@popperjs/core@2.10.2/dist/umd/popper.js",
         r"https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.js",
         r"https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.js"
