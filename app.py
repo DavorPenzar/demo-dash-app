@@ -19,7 +19,7 @@ import dash.exceptions as _exc
 import dash.html as _html
 import dash_bootstrap_components as _dbc
 
-app = _dash.Dash(
+dash_app = _dash.Dash(
     __name__,
     title = 'New Testing App',
     external_stylesheets = [
@@ -32,8 +32,9 @@ app = _dash.Dash(
         r"https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.js"
     ]
 )
+app = dash_app.server
 
-app.layout = _dbc.Container(
+dash_app.layout = _dbc.Container(
     children = [
         _html.Header(
             children = [
@@ -137,7 +138,10 @@ app.layout = _dbc.Container(
     ]
 )
 
-@app.callback(
+def _print_value (x):
+    return '' if x is None else str(x)
+
+@dash_app.callback(
     _dep.Output('data-frame-store', 'data'),
     _dep.Output('data-frame-table', 'children'),
     _dep.Output('data-figure', 'children'),
@@ -181,6 +185,10 @@ def _upload_data_frame (contents, df):
     else:
         df = _pd.DataFrame.from_dict(df)
 
+    num_cols = df.columns[
+        list(_np.issubdtype(df[col].dtype, _np.number) for col in df.columns)
+    ]
+
     table = [
         _html.Caption('The uploaded table', className = 'table-caption'),
 
@@ -188,13 +196,13 @@ def _upload_data_frame (contents, df):
             children = _html.Tr(
                 children = [
                     _html.Th(
-                        children = df.index.name,
+                        children = _print_value(df.index.name),
                         scope = 'col',
                         className = 'text-center'
                     )
                 ] + list(
                     _html.Th(
-                        children = col,
+                        children = _print_value(col),
                         scope = 'col',
                         className = 'text-center'
                     ) for col in df.columns
@@ -207,13 +215,13 @@ def _upload_data_frame (contents, df):
                 _html.Tr(
                     children = [
                         _html.Th(
-                            children = ind,
+                            children = _print_value(ind),
                             scope = 'row',
                             className = 'text-center'
                         )
                     ] + list(
                         _html.Td(
-                            children = df.loc[ind, col],
+                            children = _print_value(df.loc[ind, col]),
                             className = \
                                 'text-end' if _np.issubdtype(
                                     df[col].dtype,
@@ -230,12 +238,12 @@ def _upload_data_frame (contents, df):
         _html.Figcaption('Graphical illustration of the uploaded table'),
 
         _dcc.Graph(
-            figure = _px.bar(data_frame = df, title = 'Bar Plot'),
+            figure = _px.bar(data_frame = df[num_cols], title = 'Bar Plot'),
             className = 'figure-img img-fluid'
         )
-    ]
+    ] if num_cols.size else None
 
     return (df.to_dict(), table, figure)
 
 if __name__ == '__main__':
-    app.run_server(debug = True)
+    dash_app.run_server(debug = True)
