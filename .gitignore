@@ -1,13 +1,13 @@
-#######################
-## CUSTOM .gitignore ##
-#######################
+######################
+## CUSTOM gitignore ##
+######################
 
-# Environment
+# Environment (although the environment's directory already includes a gitignore to ignore all contents).
 demo_dash_app_env/
 
-#########################
-## IMPORTED .gitignore ##
-#########################
+########################
+## IMPORTED gitignore ##
+########################
 
 # Created by https://www.toptal.com/developers/gitignore/api/python,jupyternotebooks,visualstudiocode
 # Edit at https://www.toptal.com/developers/gitignore?templates=python,jupyternotebooks,visualstudiocode
